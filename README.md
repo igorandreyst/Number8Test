@@ -29,3 +29,5 @@ Version 2.0
 - More Holidays and Regions.
 - Better UI.
 - Time to learn VueJS or Angular
+- Render the Cal in a 2 or 3 column table
+- Country Code should be a dropbox to reduce user error
