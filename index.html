@@ -20,29 +20,25 @@
             <input type="number" id="nbDays" name="nbDays">
             <br/>
             <label for="ctCode">Country Code:</label>
-            <input type="text" id="ctCode" name="ctCode">
+            <input type="text" id="ctCode" name="ctCode" value="">
             <br />
             <button type="button" onclick="showCalendar(parseInt(document.getElementById('datePicker').value.substring(5,7), 10) - 1, 
                 document.getElementById('datePicker').value.substring(0,4), document.getElementById('datePicker').value.substring(8,10),
                 document.getElementById('nbDays').value)">Select Days</button>
+                <button type="button" onclick="clearCal()" >Clear Calendar</button>
         </form>
     </div>
-    <div class="container col-sm-4 col-md-7 col-lg-4 mt-5">
+    <div id="caldiv" class="container col-sm-4 col-md-7 col-lg-4 mt-5" hidden="true">
         <div class="card">
             <table class="table table-bordered table-responsive-sm" id="calendar">
-                <thead class="text-uppercase" id="monthAndYear"></thead>
-                
-                </thead>
-
                 <tbody id="calendar-body">
-
                 </tbody>
             </table>
             <br/>
         </div>
     </div>
     <!--<button name="jump" onclick="jump()">Go</button>-->
-    <script src="C:\Users\igor.strejevitch\Desktop\script.js"></script>
+    <script src="script.js"></script>
     <!-- Optional JavaScript for bootstrap -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

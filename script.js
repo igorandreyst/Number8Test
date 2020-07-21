@@ -7,10 +7,15 @@ let tbl = document.getElementById("calendar-body");
 
 let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-let monthAndYear = document.getElementById("monthAndYear");
-showCalendar(currentMonth, currentYear, currentDay);
+function clearCal() {
+    document.getElementById("caldiv").hidden = true;
+    document.getElementById("datePicker").value = "";
+    document.getElementById("ctCode").value = "";
+    document.getElementById("nbDays").value = "";
+}
 
 function showCalendar(month, year, day, nbDays) {
+    document.getElementById("caldiv").hidden = false;
     let nbMonths = 1;
     let count = 0;
     let monthInit = month;
@@ -62,6 +67,11 @@ function showCalendar(month, year, day, nbDays) {
                     } else {
                         cell.classList.add("bg-success");
                     }
+
+                    
+                    if (addHolidays(month, date))
+                        cell.classList.add("text-primary");
+                    
 
                     if (date === parseInt(day) || (monthInit != month && count < nbDays) || (year != yearInit && count < nbDays)) {
                         cell.classList.add("bg-danger");
@@ -138,4 +148,58 @@ function addMonth(year, month) {
     cell.appendChild(cellText);
     row.appendChild(cell);
     tbl.appendChild(row);
+}
+
+function addHolidays(month, date) {
+    let ctCode = document.getElementById("ctCode").value;
+
+    if (ctCode == "CA") {
+        var holiday = holidays.CA[(month+1 + "/" + date).toString()];
+        if (holiday) {
+            return true
+        } else {
+            false;
+        }
+    }
+    else if (ctCode == "US") {
+        var holiday = holidays.US[(month+1 + "/" + date).toString()];
+        if (holiday) {
+            return true;
+        } else {
+            false;
+        }
+    }
+    else {
+        return false;
+    }
+}
+
+
+
+let holidays = {
+    "US": {
+        "1/1": "New Year's Day",
+        "2/2": "Groundhog Day",
+        "2/14": "Valentine's Day",
+        "3/17": "St. Patrick's Day",
+        "4/22": "Earth Day",
+        "7/4": "Independence Day",
+        "9/11": "Patriot Day",
+        "10/31": "Halloween",
+        "11/11": "Veterans' Day",
+        "12/7": "Pearl Harbor Day",
+        "12/25": "Christmas Day",
+        "12/31": "New Year's Eve"
+        
+    },
+    "CA": {
+        "1/1": "New Year's Day",
+        "2/2": "Groundhog Day",
+        "2/14": "Valentine's Day",
+        "7/1": "Canada Day",
+        "11/11": "Remembrance Day",
+        "12/25": "Christmas Day",
+        "12/26": "Boxing Day",
+        "12/31": "New Year's Eve"
+        }
 }
