@@ -8,6 +8,7 @@ let tbl = document.getElementById("calendar-body");
 let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 function clearCal() {
+    // Clears Screen
     document.getElementById("caldiv").hidden = true;
     document.getElementById("datePicker").value = "";
     document.getElementById("ctCode").value = "";
@@ -15,6 +16,7 @@ function clearCal() {
 }
 
 function showCalendar(month, year, day, nbDays) {
+    // Checks if the form is valid
     if (checkValidity()) {
         document.getElementById("caldiv").hidden = false;
         let nbMonths = 1;
@@ -25,6 +27,7 @@ function showCalendar(month, year, day, nbDays) {
         tbl.innerHTML = "";
 
         if (nbDays > 0)
+            // Numer of months to render
             nbMonths = Math.ceil(nbDays / 30);
 
         for (let k = 0; k < nbMonths; k++) {
@@ -33,20 +36,22 @@ function showCalendar(month, year, day, nbDays) {
             let date = 1;
             let lastRow = true;
 
+            // Creates header for month
             addMonth(year, month);
+            // Creates row with days of the week
             addDays();
 
             for (let i = 0; i < 6; i++) {
                 let row = document.createElement("tr");
 
                 for (let j = 0; j < 7; j++) {
+                    // Greys out days before first day
                     if (i === 0 && j < firstDay) {
                         let cell = document.createElement("td");
                         let cellText = document.createTextNode("");
                         cell.classList.add("bg-secondary");
                         cell.appendChild(cellText);
                         row.appendChild(cell);
-                        
                     }
                     else if (date > daysInMonth) {
                         let cell = document.createElement("td");
@@ -54,7 +59,7 @@ function showCalendar(month, year, day, nbDays) {
                         cell.classList.add("bg-secondary");
                         cell.appendChild(cellText);
                         row.appendChild(cell);
-
+                        // Checks to see if the last day of the month is also a sat so no new row is created
                         if (tbl.rows[1].cells[j].innerHTML == "SAT" || date == daysInMonth) {
                             lastRow = false;
                             break;
@@ -69,11 +74,11 @@ function showCalendar(month, year, day, nbDays) {
                             cell.classList.add("bg-success");
                         }
 
-                        
+                        // Holidays with blue letters
                         if (addHolidays(month, date))
                             cell.classList.add("text-primary");
                         
-
+                        // Paints selected day span red
                         if (date === parseInt(day) || (monthInit != month && count < nbDays) || (year != yearInit && count < nbDays)) {
                             cell.classList.add("bg-danger");
                             if (count < nbDays) {
