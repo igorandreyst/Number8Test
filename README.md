@@ -1,3 +1,5 @@
+TOTAL COMPLETION TIME: 4 HOURS
+
 Detailed Requirements:
 
 1. Allow the user to specify three inputs: A Start Date, the Number of days to display and a Country Code literal (the country code literal value must be defined by the user with the keyboard).
@@ -27,3 +29,5 @@ Version 2.0
 - More Holidays and Regions.
 - Better UI.
 - Time to learn VueJS or Angular
+- Render the Cal in a 2 or 3 column table
+- Country Code should be a dropbox to reduce user error
