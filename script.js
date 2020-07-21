@@ -19,16 +19,17 @@ function showCalendar(month, year, day, nbDays) {
     // Checks if the form is valid
     if (checkValidity()) {
         document.getElementById("caldiv").hidden = false;
-        let nbMonths = 1;
         let count = 0;
         let monthInit = month;
         let yearInit = year;
 
         tbl.innerHTML = "";
 
-        if (nbDays > 0)
-            // Numer of months to render
-            nbMonths = Math.ceil(nbDays / 30);
+        // Numer of months to render
+        let nbMonths = Math.ceil(nbDays / 30);
+
+        if (nbMonths == 0)
+            nbMonths++;
 
         for (let k = 0; k < nbMonths; k++) {
             let firstDay = (new Date(year, month)).getDay();
