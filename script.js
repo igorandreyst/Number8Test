@@ -15,90 +15,113 @@ function clearCal() {
 }
 
 function showCalendar(month, year, day, nbDays) {
-    document.getElementById("caldiv").hidden = false;
-    let nbMonths = 1;
-    let count = 0;
-    let monthInit = month;
-    let yearInit = year;
+    if (checkValidity()) {
+        document.getElementById("caldiv").hidden = false;
+        let nbMonths = 1;
+        let count = 0;
+        let monthInit = month;
+        let yearInit = year;
 
-    tbl.innerHTML = "";
+        tbl.innerHTML = "";
 
-    if (nbDays > 0)
-        nbMonths = Math.ceil(nbDays / 30);
+        if (nbDays > 0)
+            nbMonths = Math.ceil(nbDays / 30);
 
-    for (let k = 0; k < nbMonths; k++) {
-        let firstDay = (new Date(year, month)).getDay();
-        let daysInMonth = 32 - new Date(year, month, 32).getDate();
-        let date = 1;
-        let lastRow = true;
+        for (let k = 0; k < nbMonths; k++) {
+            let firstDay = (new Date(year, month)).getDay();
+            let daysInMonth = 32 - new Date(year, month, 32).getDate();
+            let date = 1;
+            let lastRow = true;
 
-        addMonth(year, month);
-        addDays();
+            addMonth(year, month);
+            addDays();
 
-        for (let i = 0; i < 6; i++) {
-            let row = document.createElement("tr");
+            for (let i = 0; i < 6; i++) {
+                let row = document.createElement("tr");
 
-            for (let j = 0; j < 7; j++) {
-                if (i === 0 && j < firstDay) {
-                    let cell = document.createElement("td");
-                    let cellText = document.createTextNode("");
-                    cell.classList.add("bg-secondary");
-                    cell.appendChild(cellText);
-                    row.appendChild(cell);
-                    
-                }
-                else if (date > daysInMonth) {
-                    let cell = document.createElement("td");
-                    let cellText = document.createTextNode("");
-                    cell.classList.add("bg-secondary");
-                    cell.appendChild(cellText);
-                    row.appendChild(cell);
-
-                    if (tbl.rows[1].cells[j].innerHTML == "SAT" || date == daysInMonth) {
-                        lastRow = false;
-                        break;
+                for (let j = 0; j < 7; j++) {
+                    if (i === 0 && j < firstDay) {
+                        let cell = document.createElement("td");
+                        let cellText = document.createTextNode("");
+                        cell.classList.add("bg-secondary");
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+                        
                     }
-                }
-                else {
-                    let cell = document.createElement("td");
-                    let cellText = document.createTextNode(date);
-                    if (j == 0 || j == 6) {
-                        cell.classList.add("bg-warning");
-                    } else {
-                        cell.classList.add("bg-success");
-                    }
+                    else if (date > daysInMonth) {
+                        let cell = document.createElement("td");
+                        let cellText = document.createTextNode("");
+                        cell.classList.add("bg-secondary");
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
 
-                    
-                    if (addHolidays(month, date))
-                        cell.classList.add("text-primary");
-                    
-
-                    if (date === parseInt(day) || (monthInit != month && count < nbDays) || (year != yearInit && count < nbDays)) {
-                        cell.classList.add("bg-danger");
-                        if (count < nbDays) {
-                            day++;
-                            count++
-                        }
-                        if (tbl.rows[1].cells[j].innerHTML == "SAT" && date == daysInMonth) 
+                        if (tbl.rows[1].cells[j].innerHTML == "SAT" || date == daysInMonth) {
                             lastRow = false;
+                            break;
+                        }
                     }
+                    else {
+                        let cell = document.createElement("td");
+                        let cellText = document.createTextNode(date);
+                        if (j == 0 || j == 6) {
+                            cell.classList.add("bg-warning");
+                        } else {
+                            cell.classList.add("bg-success");
+                        }
 
-                    cell.appendChild(cellText);
-                    row.appendChild(cell);
-                    date++;
+                        
+                        if (addHolidays(month, date))
+                            cell.classList.add("text-primary");
+                        
+
+                        if (date === parseInt(day) || (monthInit != month && count < nbDays) || (year != yearInit && count < nbDays)) {
+                            cell.classList.add("bg-danger");
+                            if (count < nbDays) {
+                                day++;
+                                count++
+                            }
+                            if (tbl.rows[1].cells[j].innerHTML == "SAT" && date == daysInMonth) 
+                                lastRow = false;
+                        }
+
+                        cell.appendChild(cellText);
+                        row.appendChild(cell);
+                        date++;
+                    }
                 }
+                tbl.appendChild(row);
+                if (!lastRow)
+                    break;
             }
-            tbl.appendChild(row);
-            if (!lastRow)
-                break;
-        }
-        if (month < 11)
-            month++;
-        else {
-            month = 0;
-            year++;
+            if (month < 11)
+                month++;
+            else {
+                month = 0;
+                year++;
+            }
         }
     }
+}
+
+function checkValidity() {
+    var date = document.getElementById("datePicker");
+    var code = document.getElementById("ctCode");
+    var days = document.getElementById("nbDays");
+
+    if (!date.checkValidity()) {
+        alert(date.validationMessage + " Start Date");
+        return false; 
+    }
+    else if (!code.checkValidity()) {
+        alert(code.validationMessage + " Country Code");
+        return false;
+    }
+    else if (!days.checkValidity()) {
+        alert(days.validationMessage + "Number of Days");
+        return false;
+    }
+    
+    return true;
 }
 
 function addDays() {

@@ -13,18 +13,18 @@
 <body>
     <div style="align-content: center;">
         <form>
-            <label for="birthday">Birthday:</label>
-            <input type="date" id="datePicker" name="date">
+            <label for="StartDate">Start Date:</label>
+            <input type="date" id="datePicker" name="date" required>
             <br/>
             <label for="nbDays">Number of Days:</label>
-            <input type="number" id="nbDays" name="nbDays">
+            <input type="number" id="nbDays" name="nbDays" required>
             <br/>
             <label for="ctCode">Country Code:</label>
-            <input type="text" id="ctCode" name="ctCode" value="">
+            <input type="text" id="ctCode" name="ctCode" value="" data-tip="Only US and CA are available" required>
             <br />
             <button type="button" onclick="showCalendar(parseInt(document.getElementById('datePicker').value.substring(5,7), 10) - 1, 
                 document.getElementById('datePicker').value.substring(0,4), document.getElementById('datePicker').value.substring(8,10),
-                document.getElementById('nbDays').value)">Select Days</button>
+                document.getElementById('nbDays').value)" >Select Days</button>
                 <button type="button" onclick="clearCal()" >Clear Calendar</button>
         </form>
     </div>
