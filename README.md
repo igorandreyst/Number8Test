@@ -1,3 +1,5 @@
+TOTAL COMPLETION TIME: 4 HOURS
+
 Detailed Requirements:
 
 1. Allow the user to specify three inputs: A Start Date, the Number of days to display and a Country Code literal (the country code literal value must be defined by the user with the keyboard).
