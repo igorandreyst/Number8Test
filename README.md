@@ -20,7 +20,7 @@ D. Any days in the week previous to the Start date.
 E. Any days in the week after the last rendered day.
 F. Any days before the first day of the month (if the calendar spills into another month).
 
-4. Extra credit will be given for adding Holidays in a different color.
+4. Extra credit will be given for adding Holidays in a different color. HOLIDAYS ARE IN BLUE LETTERS
 
 Version 2.0
 
